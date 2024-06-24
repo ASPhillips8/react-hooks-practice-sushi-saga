@@ -16,10 +16,14 @@ function SushiContainer({ sushis }) {
     return <Sushi key={sushi.id} sushi={sushi} />
   })
 
+  function handleMoreButtonClick() {
+    setStartIndex(startIndex + 4)
+  }
+
   return (
     <div className="belt">
       {displayedSushis}
-      <MoreButton />
+      <MoreButton onMoreClick={handleMoreButtonClick} />
     </div>
   )
 }
