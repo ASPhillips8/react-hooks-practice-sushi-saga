@@ -4,7 +4,9 @@ function Sushi({ sushi, onEatSushiClick }) {
   const { id, name, img_url, price, eaten } = sushi
 
   function handleSushiClick() {
-    onEatSushiClick(id, price)
+    if (!eaten) {
+      onEatSushiClick(id, price)
+    }
   }
 
   return (
