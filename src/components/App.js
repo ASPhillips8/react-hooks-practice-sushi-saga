@@ -13,9 +13,16 @@ function App() {
       .then((sushisData) => setSushis(sushisData))
   }, [])
 
+  function handleSushiEatClick(id) {
+    const updatedSushis = sushis.map((sushi) =>
+      sushi.id === id ? { ...sushi, eaten: true } : sushi
+    )
+    setSushis(updatedSushis)
+  }
+
   return (
     <div className="app">
-      <SushiContainer sushis={sushis} />
+      <SushiContainer sushis={sushis} onEatSushiClick={handleSushiEatClick} />
       <Table />
     </div>
   )
