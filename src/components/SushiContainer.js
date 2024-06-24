@@ -14,7 +14,7 @@ function SushiContainer({ sushis, onEatSushiClick }) {
   })
 
   function handleMoreButtonClick() {
-    setStartIndex(startIndex + 4)
+    setStartIndex(() => endIndex % sushis.length)
   }
 
   return (
