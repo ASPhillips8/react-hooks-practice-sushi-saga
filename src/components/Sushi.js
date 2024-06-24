@@ -1,7 +1,6 @@
 import React from "react"
 
 function Sushi({ sushi, onEatSushiClick }) {
-  console.log("sushi", sushi)
   const { id, name, img_url, price, eaten } = sushi
 
   function handleSushiClick() {
