@@ -6,6 +6,7 @@ const API = "http://localhost:3001/sushis"
 
 function App() {
   const [sushis, setSushis] = useState([])
+  const [money, setMoney] = useState(100)
 
   useEffect(() => {
     fetch(API)
@@ -13,22 +14,24 @@ function App() {
       .then((sushisData) => setSushis(sushisData))
   }, [])
 
-  function handleSushiEatClick(id) {
-    const updatedSushis = sushis.map((sushi) =>
-      sushi.id === id ? { ...sushi, eaten: true } : sushi
-    )
-    setSushis(updatedSushis)
+  function handleSushiEatClick(id, price) {
+    if (money >= price) {
+      const updatedSushis = sushis.map((sushi) =>
+        sushi.id === id ? { ...sushi, eaten: true } : sushi
+      )
+      setSushis(updatedSushis)
+      setMoney(money - price)
+    } else {
+      console.log("Add money to your Wallet")
+    }
   }
 
-  // table has plate prop
-  // plate is an array that show eaten choices
-  // if eaten is true pass into new array
   const eatenSushi = sushis.filter((sushi) => sushi.eaten)
 
   return (
     <div className="app">
       <SushiContainer sushis={sushis} onEatSushiClick={handleSushiEatClick} />
-      <Table plates={eatenSushi} />
+      <Table money={money} plates={eatenSushi} />
     </div>
   )
 }
