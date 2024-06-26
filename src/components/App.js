@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import SushiContainer from "./SushiContainer"
 import Table from "./Table"
+import SushiWallet from "./SushiWallet"
 
 const API = "http://localhost:3001/sushis"
 
@@ -14,6 +15,12 @@ function App() {
       .then((sushisData) => setSushis(sushisData))
   }, [])
 
+  function handleAddMoney(addedFunds) {
+    setMoney((previousAmount) => previousAmount + parseFloat(addedFunds))
+  }
+
+  const eatenSushi = sushis.filter((sushi) => sushi.eaten)
+
   function handleSushiEatClick(id, price) {
     if (money >= price) {
       const updatedSushis = sushis.map((sushi) =>
@@ -26,12 +33,11 @@ function App() {
     }
   }
 
-  const eatenSushi = sushis.filter((sushi) => sushi.eaten)
-
   return (
     <div className="app">
       <SushiContainer sushis={sushis} onEatSushiClick={handleSushiEatClick} />
       <Table money={money} plates={eatenSushi} />
+      <SushiWallet onAddMoney={handleAddMoney} />
     </div>
   )
 }
